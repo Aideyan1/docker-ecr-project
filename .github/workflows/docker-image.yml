@@ -23,7 +23,7 @@ jobs:
       run: |
         aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 466670870088.dkr.ecr.us-east-1.amazonaws.com
     - name: Build Docker image
-      run: docker build -t newuser-image:latest .
+      run: docker build -t newuser-ecr:latest .
 
     - name: Tag Docker image
       run: docker tag newuser-ecr:latest 466670870088.dkr.ecr.us-east-1.amazonaws.com/newuser-ecr:latest
