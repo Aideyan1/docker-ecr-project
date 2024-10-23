@@ -31,7 +31,8 @@ jobs:
     - name: Push Docker image to ECR
       run: docker push 466670870088.dkr.ecr.us-east-1.amazonaws.com/newuser-ecr:latest
 
- deploy:
+
+   deploy:
     runs-on: ubuntu-latest
     needs: build
     steps:
