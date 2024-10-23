@@ -43,5 +43,5 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             # Stop and remove the existing container if it exists
-            docker stop sharp_chandrasekhar || true
-            docker rm sharp_chandrasekhar || true
+            docker stop my_container || true
+            docker rm my_container || true
