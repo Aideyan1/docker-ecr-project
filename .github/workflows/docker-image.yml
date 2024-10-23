@@ -47,7 +47,7 @@ jobs:
             # Pull the latest Docker image
             docker pull 466670870088.dkr.ecr.us-east-1.amazonaws.com/newuser-ecr:latest
 
-            # Stop and remove the existing container if it exists
+            # Stop and remove the existing container if it existss
             docker stop my_container || true
             docker rm my_container || true
 
