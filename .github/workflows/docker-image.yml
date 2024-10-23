@@ -3,7 +3,7 @@ name: Build and Push Docker Image to ECR
 on:
   push:
     branches:
-      - main
+      - main  
 
 jobs:
   build:
@@ -22,11 +22,12 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: |
         aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 466670870088.dkr.ecr.us-east-1.amazonaws.com
+
     - name: Build Docker image
-      run: docker build -t my-app:latest .
+      run: docker build -t docker-ecr-image:latest .
 
     - name: Tag Docker image
-      run: docker tag my-app:latest 466670870088.dkr.ecr.us-east-1.amazonaws.com/my-app-ecr:latest
+      run: docker tag docker-ecr-image:latest 466670870088.dkr.ecr.us-east-1.amazonaws.com/docker-ecr-project:latest
 
     - name: Push Docker image to ECR
-      run: docker push 466670870088.dkr.ecr.us-east-1.amazonaws.com/my-app-ecr:latest
+      run: docker push 466670870088.dkr.ecr.us-east-1.amazonaws.com/docker-ecr-project:latest
