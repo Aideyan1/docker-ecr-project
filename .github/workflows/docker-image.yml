@@ -30,3 +30,19 @@ jobs:
 
     - name: Push Docker image to ECR
       run: docker push 466670870088.dkr.ecr.us-east-1.amazonaws.com/newuser-ecr:latest
+
+      deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: SSH to EC2 and pull new Docker image
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            docker pull 466670870088.dkr.ecr.us-east-1.amazonaws.com/newuser-ecr:latest
+            docker stop <container_name> || true
+            docker rm <container_name> || true
+            docker run -d -p 80:80 --name <container_name> 466670870088.dkr.ecr.us-east-1.amazonaws.com/newuser-ecr:latest
