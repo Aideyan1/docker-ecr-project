@@ -28,20 +28,12 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-    # - name: Log in to Amazon ECR
-    #   env:
-    #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    #     AWS_REGION: us-east-1 # Define the region
-    #   run: |
-    #     aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin 466670870088.dkr.ecr.us-east-1.amazonaws.com
+    - name: Build Docker image
+      run: docker build -t my-app:latest .
 
-    # - name: Build Docker image
-    #   run: docker build -t my-app:latest .
+    - name: Tag Docker image
+      run: docker tag my-app:latest 466670870088.dkr.ecr.us-east-1.amazonaws.com/testecr:${{ github.run_number }} # Correct ECR repo name
 
-    # - name: Tag Docker image
-    #   run: docker tag my-app:latest 466670870088.dkr.ecr.us-east-1.amazonaws.com/newuser-ecr:latest # Correct ECR repo name
-
-    # - name: Push Docker image to ECR
-    #   run: docker push 466670870088.dkr.ecr.us-east-1.amazonaws.com/newuser-ecr:latest # Correct ECR repo name
+    - name: Push Docker image to ECR
+      run: docker push 466670870088.dkr.ecr.us-east-1.amazonaws.com/testecr:${{ github.run_number }} # Correct ECR repo name
 
