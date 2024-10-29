@@ -81,7 +81,7 @@ jobs:
  
   deploy:
     runs-on: ubuntu-latest
-   
+    needs: build
  
     steps:
     - name: SSH to EC2 Instance and Deploy Docker Container
